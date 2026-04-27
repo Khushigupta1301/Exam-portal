@@ -1,0 +1,84 @@
+
+{% extends 'base.html' %}
+
+{% block title %}Fill Exam Form{% endblock %}
+
+{% block body %}
+  <div class="page-wrap">
+    <div class="login-layout" style="align-items: start;">
+      <section class="brand">
+        <p class="mini-title">Exam Submission</p>
+        <h1>Complete your exam form in one clean step.</h1>
+        <p>
+          Fill in your student information carefully. The form is validated before saving,
+          and the saved record will be stored in the database.
+        </p>
+
+        <div class="feature-row">
+          <span class="chip">Full name</span>
+          <span class="chip">Course</span>
+          <span class="chip">Year</span>
+          <span class="chip">Address</span>
+          <span class="chip">Phone number</span>
+        </div>
+
+        <div class="card" style="margin-top: 24px; background: rgba(255,255,255,0.1); color: white; border-color: rgba(255,255,255,0.18);">
+          <h2 style="margin-top: 0; color: white;">Submission note</h2>
+          <p style="margin-bottom: 0; color: rgba(255,255,255,0.9);">
+            Make sure the phone number contains only digits and valid separators.
+          </p>
+        </div>
+      </section>
+
+      <section class="panel">
+        <h2 class="page-title">Exam Form</h2>
+        <p>Provide all required details and submit the form.</p>
+
+        <form method="post" class="stack">
+          {% csrf_token %}
+
+          {% if form.non_field_errors %}
+            {% for error in form.non_field_errors %}
+              <div class="alert">{{ error }}</div>
+            {% endfor %}
+          {% endif %}
+
+          <div class="field">
+            <label for="id_full_name">Full Name</label>
+            {{ form.full_name }}
+            {% for error in form.full_name.errors %}<div class="alert">{{ error }}</div>{% endfor %}
+          </div>
+
+          <div class="field">
+            <label for="id_course">Course</label>
+            {{ form.course }}
+            {% for error in form.course.errors %}<div class="alert">{{ error }}</div>{% endfor %}
+          </div>
+
+          <div class="field">
+            <label for="id_year">Year</label>
+            {{ form.year }}
+            {% for error in form.year.errors %}<div class="alert">{{ error }}</div>{% endfor %}
+          </div>
+
+          <div class="field">
+            <label for="id_address">Address</label>
+            {{ form.address }}
+            {% for error in form.address.errors %}<div class="alert">{{ error }}</div>{% endfor %}
+          </div>
+
+          <div class="field">
+            <label for="id_phone_number">Phone Number</label>
+            {{ form.phone_number }}
+            {% for error in form.phone_number.errors %}<div class="alert">{{ error }}</div>{% endfor %}
+          </div>
+
+          <div class="actions">
+            <button type="submit">Submit Form</button>
+            <a class="btn btn-secondary" href="{% url 'dashboard' %}">Back to Dashboard</a>
+          </div>
+        </form>
+      </section>
+    </div>
+  </div>
+{% endblock %}

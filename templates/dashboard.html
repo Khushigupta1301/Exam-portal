@@ -1,0 +1,62 @@
+
+{% extends 'base.html' %}
+
+{% block title %}Dashboard{% endblock %}
+
+{% block body %}
+	<div class="hero">
+		<section class="brand">
+			<p class="mini-title">Student Dashboard</p>
+			<h1>Welcome back, {{ request.user.first_name|default:request.user.username }}.</h1>
+			<p>
+				This is your starting point for the University Exam Form Portal. Review your details,
+				fill the form, and submit it securely to the database.
+			</p>
+
+			<div class="feature-row">
+				<span class="chip">Authenticated session</span>
+				<span class="chip">Exam form ready</span>
+				<span class="chip">Secure submission</span>
+			</div>
+
+			<div class="actions" style="margin-top: 26px;">
+				<a class="btn btn-secondary" href="{% url 'form' %}">Fill Exam Form</a>
+				<form method="post" action="{% url 'logout' %}" style="display:inline; margin:0;">
+					{% csrf_token %}
+					<button class="btn btn-danger" type="submit">Logout</button>
+				</form>
+			</div>
+		</section>
+
+		<aside class="panel">
+			<h2 class="page-title">Quick Overview</h2>
+			<p>Everything you need is organized here before submitting your exam form.</p>
+
+			<div class="two-up">
+				<div class="info-tile">
+					<span class="label">Current user</span>
+					<span class="value">{{ request.user.username }}</span>
+				</div>
+				<div class="info-tile">
+					<span class="label">Next step</span>
+					<span class="value">Open form</span>
+				</div>
+				<div class="info-tile">
+					<span class="label">Form status</span>
+					<span class="value">Not submitted</span>
+				</div>
+				<div class="info-tile">
+					<span class="label">Saved to DB</span>
+					<span class="value">After submit</span>
+				</div>
+			</div>
+
+			<div class="card" style="margin-top: 20px;">
+				<h2 style="margin-top: 0;">Workflow</h2>
+				<p style="margin-bottom: 0;">
+					Dashboard first, then exam form, then confirmation page after saving.
+				</p>
+			</div>
+		</aside>
+	</div>
+{% endblock %}

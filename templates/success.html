@@ -1,0 +1,44 @@
+
+{% extends 'base.html' %}
+
+{% block title %}Submission Success{% endblock %}
+
+{% block body %}
+	<div class="page-wrap">
+		<div class="login-layout">
+			<section class="brand">
+				<p class="mini-title">Submission complete</p>
+				<h1>Your exam form has been saved successfully.</h1>
+				<p>
+					The data was written to the database and is now ready for review.
+				</p>
+
+				<div class="feature-row">
+					<span class="chip">Saved to database</span>
+					<span class="chip">Ready for review</span>
+					<span class="chip">No extra steps</span>
+				</div>
+			</section>
+
+			<section class="panel">
+				<h2 class="page-title">Success</h2>
+				<div class="success-banner">
+					<strong>Form Submitted Successfully.</strong>
+					<p style="margin: 8px 0 0; color: inherit;">
+						{% if student_name %}Student: {{ student_name }}{% endif %}
+					</p>
+				</div>
+
+				<div class="card" style="margin-top: 20px;">
+					<h2 style="margin-top: 0;">Next actions</h2>
+					<p>Return to the dashboard or submit another form if needed.</p>
+
+					<div class="actions">
+						<a class="btn btn-secondary" href="{% url 'dashboard' %}">Back to Dashboard</a>
+						<a class="btn btn-primary" href="{% url 'form' %}">Submit Another Form</a>
+					</div>
+				</div>
+			</section>
+		</div>
+	</div>
+{% endblock %}

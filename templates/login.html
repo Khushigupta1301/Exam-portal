@@ -1,0 +1,65 @@
+
+{% extends 'base.html' %}
+
+{% block title %}Student Login{% endblock %}
+
+{% block body %}
+  <div class="page-wrap">
+    <div class="login-layout">
+      <section class="brand login-card">
+        <p class="mini-title">University Exam Form Portal</p>
+        <h1>Login, review your dashboard, and submit your exam form with ease.</h1>
+        <p>
+          A focused student portal for exam form submission. Log in with the credentials
+          created by your administrator, then move straight to the dashboard.
+        </p>
+
+        <div class="feature-row">
+          <span class="chip">Secure login</span>
+          <span class="chip">Fast dashboard access</span>
+          <span class="chip">Saved to database</span>
+        </div>
+
+        <ul class="list" style="margin-top: 24px;">
+          <li>01 <span>Login with your assigned credentials.</span></li>
+          <li>02 <span>Open the dashboard after authentication.</span></li>
+          <li>03 <span>Fill and submit the exam form.</span></li>
+        </ul>
+      </section>
+
+      <section class="panel login-card">
+        <h2 class="page-title">Sign in</h2>
+        <p>Enter your username and password to continue.</p>
+
+        {% if messages %}
+          {% for message in messages %}
+            <div class="alert">{{ message }}</div>
+          {% endfor %}
+        {% endif %}
+
+        <form method="post" class="stack">
+          {% csrf_token %}
+          <input type="hidden" name="next" value="{{ next }}">
+
+          <div class="field">
+            <label for="username">Username</label>
+            <input id="username" type="text" name="username" placeholder="Enter your username" required>
+          </div>
+
+          <div class="field">
+            <label for="password">Password</label>
+            <input id="password" type="password" name="password" placeholder="Enter your password" required>
+          </div>
+
+          <div class="actions">
+            <button type="submit">Login to Dashboard</button>
+          </div>
+        </form>
+
+        <p class="small-note" style="margin-top: 18px;">
+          Need an account first? <a href="{% url 'signup' %}">Create one here</a>.
+        </p>
+      </section>
+    </div>
+  </div>
+{% endblock %}

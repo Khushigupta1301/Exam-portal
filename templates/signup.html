@@ -1,0 +1,80 @@
+{% extends 'base.html' %}
+
+{% block title %}Create Account{% endblock %}
+
+{% block body %}
+  <div class="page-wrap">
+    <div class="login-layout">
+      <section class="brand login-card">
+        <p class="mini-title">Start here</p>
+        <h1>Create your student account before logging in.</h1>
+        <p>
+          Since your credentials are not saved yet, this page creates them first. Once the account
+          is created, you will be signed in automatically and taken to the dashboard.
+        </p>
+
+        <div class="feature-row">
+          <span class="chip">Create credentials</span>
+          <span class="chip">Auto-login</span>
+          <span class="chip">Then dashboard</span>
+        </div>
+
+        <div class="card" style="margin-top: 24px; background: rgba(255,255,255,0.1); color: white; border-color: rgba(255,255,255,0.18);">
+          <h2 style="margin-top: 0; color: white;">Why this comes first</h2>
+          <p style="margin-bottom: 0; color: rgba(255,255,255,0.9);">
+            You cannot log in before an account exists. This page creates the account, then moves
+            you directly into the portal.
+          </p>
+        </div>
+      </section>
+
+      <section class="panel login-card">
+        <h2 class="page-title">Sign up</h2>
+        <p>Create your username and password to begin.</p>
+
+        {% if messages %}
+          {% for message in messages %}
+            <div class="alert">{{ message }}</div>
+          {% endfor %}
+        {% endif %}
+
+        <form method="post" class="stack">
+          {% csrf_token %}
+
+          {% if form.non_field_errors %}
+            {% for error in form.non_field_errors %}
+              <div class="alert">{{ error }}</div>
+            {% endfor %}
+          {% endif %}
+
+          <div class="field">
+            <label for="id_username">Username</label>
+            {{ form.username }}
+            {% for error in form.username.errors %}<div class="alert">{{ error }}</div>{% endfor %}
+          </div>
+
+          <div class="field">
+            <label for="id_password1">Password</label>
+            {{ form.password1 }}
+            {% for error in form.password1.errors %}<div class="alert">{{ error }}</div>{% endfor %}
+          </div>
+
+          <div class="field">
+            <label for="id_password2">Confirm Password</label>
+            {{ form.password2 }}
+            {% for error in form.password2.errors %}<div class="alert">{{ error }}</div>{% endfor %}
+          </div>
+
+          <div class="actions">
+            <button type="submit">Create Account</button>
+            <a class="btn btn-secondary" href="{% url 'login' %}">Already have an account?</a>
+          </div>
+        </form>
+
+        <p class="small-note" style="margin-top: 18px;">
+          After signing up, you will be redirected straight to the dashboard.
+        </p>
+      </section>
+    </div>
+  </div>
+{% endblock %}
